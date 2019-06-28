@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import telebot
 
-bot = telebot.Telebot("876526827:AAGWgaPYbiFWLF9PDdoGI8ZeMzJtqoJCVtE")
+bot = telebot.TeleBot("876526827:AAGWgaPYbiFWLF9PDdoGI8ZeMzJtqoJCVtE")
 
 @bot.message_handler(content_types=['text'])
 def send_echo(message):
