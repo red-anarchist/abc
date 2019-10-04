@@ -8,13 +8,8 @@ def start_message(message):
     bot.send_message('Привет!')
 
 @bot.message_handler(content_types=['text'])
-def send_text(message):
-
-    if message.text.lower() == 'привет':
-        bot.send_message('Здарова!')
-    elif message.text.lower() == 'пока':
-        bot.send_message('Прощай, создатель')
-    elif message.text[0] == '!':
-        bot.send_message('хочет '+message.text[1:-1])
+def text(m):
+	if m.text.lower[:6]=='!кража':
+		bot.send_message(m, m.from_user.first_name+" совершает кражу"+m.text[5:])
 
 bot.polling(none_stop=True)
