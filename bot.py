@@ -7,7 +7,8 @@ bot = telebot.TeleBot('981943532:AAHI9aAZkRG4Q0UuNIy2wKtve_y9QFMf9FU')
 def start_message(message):
     bot.send_message('Привет!')
 
-steal2_wait = ()
+steal_wait = {}
+steal2_wait = {}
 
 @bot.message_handler(content_types=['text'])
 def text(m):
