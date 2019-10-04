@@ -15,6 +15,6 @@ def send_text(message):
     elif message.text.lower() == 'пока':
         bot.send_message('Прощай, создатель')
     elif message.text[0] == '!':
-        bot.send_message('хочет '+send_message[1:-1])
+        bot.send_message('хочет '+message.text[1:-1])
 
 bot.polling(none_stop=True)
