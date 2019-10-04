@@ -33,7 +33,7 @@ def text(m):
 			if success == 1:
 				bot.send_message(m.chat.id, text, parse_mode = 'markdown')
 			else:
-				bot.send_message(m.chat.id, 'У *' + name + '* не хватает уменияреализовать кражу *' + target + '*! А ведь шанс был целых 'str(chance) + ' процентов!')
+				bot.send_message(m.chat.id, 'У *' + name + '* не хватает уменияреализовать кражу *' + target + '*! А ведь шанс был целых ' + str(chance) + ' процентов!')
 			steal2_wait.update({m.from_user.id:{'timer'=60}})
 		else:
 			secs = steal2_wait[user['id']]['timer']
