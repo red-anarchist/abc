@@ -7,6 +7,8 @@ bot = telebot.TeleBot('981943532:AAHI9aAZkRG4Q0UuNIy2wKtve_y9QFMf9FU')
 def start_message(message):
     bot.send_message('Привет!')
 
+steal2_wait = ()
+
 @bot.message_handler(content_types=['text'])
 def text(m):
 	if m.text[:6].lower()=='!кража':
@@ -33,7 +35,7 @@ def text(m):
 			if success == 1:
 				bot.send_message(m.chat.id, text, parse_mode = 'markdown')
 			else:
-				bot.send_message(m.chat.id, 'У *' + name + '* не хватает уменияреализовать кражу *' + target + '*! А ведь шанс был целых ' + str(chance) + ' процентов!')
+				bot.send_message(m.chat.id, 'У *' + name + '* не хватает умения реализовать кражу *' + target + '*! А ведь шанс был целых ' + str(chance) + ' процентов!')
 			steal2_wait.update({m.from_user.id:{'timer':60}})
 		else:
 			secs = steal2_wait[user['id']]['timer']
