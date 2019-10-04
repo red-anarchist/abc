@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import telebot
+import random
 
 bot = telebot.TeleBot('981943532:AAHI9aAZkRG4Q0UuNIy2wKtve_y9QFMf9FU')
 
