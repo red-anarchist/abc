@@ -13,6 +13,7 @@ steal2_wait = {}
 
 @bot.message_handler(content_types=['text'])
 def text(m):
+	name = m.from_user.first_name
 	if m.text[:6].lower()=='!кража':
 		if m.from_user.id not in steal2_wait:
 			chance = random.randint(1, 100)
