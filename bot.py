@@ -77,7 +77,7 @@ def get_text_messages(message):
 			bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог украсть нижнее бельё {dstr}, каков извращенец! Шанс на успех был {shans}%.')
 
 	# Обновления
-	elif mes[0] == '/update' or '/обновления':
+	elif mes[0] == '/update' or mes[0] == '/обновления':
 		bot.send_message(message.chat.id, '*Последние обновления*\n \n*13.01.2020*\n--Исправлен текст игры\n--Добавлены обновления\n--Обновлено меню помощи\n--Упрощён код\n--Теперь можно красть трусики', parse_mode='markdown')
 
 	# Помощь
@@ -87,8 +87,5 @@ def get_text_messages(message):
 	# Неизвестная команада
 	elif message.text[0] == '!' or message.text[0] == '/':
 		bot.send_message(message.chat.id, 'Неизвестная команда, в /help (/помощь) вы можете посмотреть доступные команды.')
-
-	else:
-		pass
 
 bot.polling(none_stop=True)
