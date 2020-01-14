@@ -15,6 +15,8 @@ def ran(p_list):
 	index = random.randint(0, int(len(p_list))-1)
 	return p_list[index]
 
+@bot.message_handler(commands=['help', 'update'])
+
 # Хендлер
 @bot.message_handler(content_types=['text'])
 
