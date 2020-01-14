@@ -15,8 +15,6 @@ def ran(p_list):
 	index = random.randint(0, int(len(p_list))-1)
 	return p_list[index]
 
-@bot.message_handler(commands=['help', 'update'])
-
 # Хендлер
 @bot.message_handler(content_types=['text'])
 
@@ -25,11 +23,11 @@ def get_text_messages(message):
 	mes = message.text.split() # Текст сообщения разбитый на списки
 
 	# Игра
-	if mes[0] == '!игра':
+	if mes[0].lower() == '!игра':
 		KNB = ran(KNB_list)
 		if len(mes) > 1:
 
-			if mes[1] == 'к' or mes[1] == 'камень':
+			if mes[1].lower() == 'к' or mes[1].lower() == 'камень':
 				if KNB == 'камень':
 					bot.send_message(message.chat.id, '*показываю камень*\nНичья.')
 				elif KNB == 'ножницы':
@@ -37,7 +35,7 @@ def get_text_messages(message):
 				else:
 					bot.send_message(message.chat.id, f'*показываю бумагу*\n{message.from_user.first_name} проиграл.')
 
-			elif mes[1] == 'н' or mes[1] == 'ножницы':
+			elif mes[1].lower() == 'н' or mes[1].lower() == 'ножницы':
 				if KNB == 'камень':
 					bot.send_message(message.chat.id, f'*показываю камень*\n{message.from_user.first_name} проиграл.')
 				elif KNB == 'ножницы':
@@ -45,7 +43,7 @@ def get_text_messages(message):
 				else:
 					bot.send_message(message.chat.id, f'*показываю бумагу*\n{message.from_user.first_name} победил.')
 
-			elif mes[1] == 'б' or mes[1] == 'бумага':
+			elif mes[1].lower() == 'б' or mes[1].lower() == 'бумага':
 				if KNB == 'камень':
 					bot.send_message(message.chat.id, f'*показываю камень*\n{message.from_user.first_name} победил.')
 				elif KNB == 'ножницы':
@@ -59,17 +57,20 @@ def get_text_messages(message):
 			bot.send_message(message.chat.id, 'Выбери камень (К), ножницы (Н) или бумагу (Б)\nПример: !игра к; !игра камень')
 
 	# Кража
-	elif mes[0] == '!кража':
-		dstr = message.text.lstrip('!кража ')
-		shans = random.randint(0, 100)
-		i = random.randint(0, 100)
-		if i <= shans:
-			bot.send_message(message.chat.id, f'{message.from_user.first_name} успешно реализует кражу {dstr}! Шанс на успех был {shans}%!')
+	elif mes[0].lower() == '!кража':
+		if message.from_user.first_name == 'Никита':
+			bot.send_message(message.chat.id, '*Никита наказан до 15.01.2020*', parse_mode='markdown')
 		else:
-			bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог совершить кражу {dstr}, хотя шанс был {shans}%.')
+			dstr = message.text.lstrip('!кража ')
+			shans = random.randint(0, 100)
+			i = random.randint(0, 100)
+			if i <= shans:
+				bot.send_message(message.chat.id, f'{message.from_user.first_name} успешно реализует кражу {dstr}! Шанс на успех был {shans}%!')
+			else:
+				bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог совершить кражу {dstr}, хотя шанс был {shans}%.')
 
 	# Кража трусов
-	elif mes[0] == '!трусики':
+	elif mes[0].lower() == '!трусики':
 		dstr = message.text.lstrip('!трусики ')
 		shans = random.randint(0, 100)
 		i = random.randint(0, 100)
@@ -79,11 +80,11 @@ def get_text_messages(message):
 			bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог украсть нижнее бельё {dstr}, каков извращенец! Шанс на успех был {shans}%.')
 
 	# Обновления
-	elif mes[0] == '/update' or mes[0] == '/обновления':
+	elif mes[0].lower() == '/update' or mes[0] == '/обновления':
 		bot.send_message(message.chat.id, '*Последние обновления*\n \n*13.01.2020*\n—Исправлен текст игры\n—Добавлены обновления\n—Обновлено меню помощи\n—Упрощён код\n—Теперь можно красть трусики', parse_mode='markdown')
 
 	# Помощь
-	elif mes[0] == '/help' or mes[0] == '/помощь':
+	elif mes[0].lower() == '/help' or mes[0] == '/помощь':
 		bot.send_message(message.chat.id, '*!игра* _(буква или объект)_ — камень ножницы бумага\n*!кража* _(предмет в родительном падеже)_ — попытка кражи\n*!трусики* _(имя пользователя в родительном падеже)_ — кража нижнего белья\n*/update* `или` */обновления* — показать последние обновления', parse_mode='markdown')
 
 	# Неизвестная команада
