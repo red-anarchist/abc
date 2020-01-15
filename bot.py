@@ -58,16 +58,13 @@ def get_text_messages(message):
 
 	# Кража
 	elif mes[0].lower() == '!кража':
-		if message.from_user.first_name == 'Никита':
-			bot.send_message(message.chat.id, '*Никита наказан до 15.01.2020*', parse_mode='markdown')
+		dstr = message.text.lstrip('!кража ')
+		shans = random.randint(0, 100)
+		i = random.randint(0, 100)
+		if i <= shans:
+			bot.send_message(message.chat.id, f'{message.from_user.first_name} успешно реализует кражу {dstr}! Шанс на успех был {shans}%!')
 		else:
-			dstr = message.text.lstrip('!кража ')
-			shans = random.randint(0, 100)
-			i = random.randint(0, 100)
-			if i <= shans:
-				bot.send_message(message.chat.id, f'{message.from_user.first_name} успешно реализует кражу {dstr}! Шанс на успех был {shans}%!')
-			else:
-				bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог совершить кражу {dstr}, хотя шанс был {shans}%.')
+			bot.send_message(message.chat.id, f'{message.from_user.first_name} не смог совершить кражу {dstr}, хотя шанс был {shans}%.')
 
 	# Кража трусов
 	elif mes[0].lower() == '!трусики':
