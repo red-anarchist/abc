@@ -17,7 +17,7 @@ def get_text_messages(message):
 		bot.delete_message(message.chat.id, message.message_id)
 	elif message.text == 'Связаться с поддержкой':
 		bot.delete_message(message.chat.id, message.message_id)
-	elif message.text[:3].lower() == 'бот,' and message.text[-1] == '?':
+	elif message.text[0:3].lower() == 'бот,' and message.text[-1] == '?':
 		if randint(0,1) == 1:
 			bot.send_message(message.chat.id, 'Да')
 		else:
