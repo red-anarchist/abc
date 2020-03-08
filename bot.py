@@ -6,11 +6,6 @@ bot = telebot.TeleBot('1032705208:AAHL8Ut4k7iybsTEMszWVFB2JA8_Hw7GsBQ')
 @bot.message_handler(content_types=['text'])
 
 def get_text_messages(message):
-	if len(message.text) > 30:
-		text = f'{message.text[0:30]}...'
-	else:
-		text = message.text
-	print(f'{message.from_user.username}: "{text}"')
 	try:
 		if message.text == 'Удивите меня':
 			bot.delete_message(message.chat.id, message.message_id)
