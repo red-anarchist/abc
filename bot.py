@@ -13,7 +13,7 @@ def get_text_messages(message):
 	print(f'{message.from_user.username}: "{text}"')
 	if message.text == 'Удивите меня':
 		bot.delete_message(message.chat.id, message.message_id)
-	elif message.text == '▶️ Игры':
+	elif message.text.split()[1] == 'Игры':
 		bot.delete_message(message.chat.id, message.message_id)
 	elif message.text == 'Связаться с поддержкой':
 		bot.delete_message(message.chat.id, message.message_id)
