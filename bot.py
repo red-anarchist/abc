@@ -21,4 +21,17 @@ def get_text_messages(message):
 	except IndexError:
 		pass
 
+	if message.text.lower() == 'бот!':
+		if message.from_user.username == 'ever_soup':
+			bot.send_message(message.chat.id, 'Да, мой господин?')
+		else:
+			bot.send_message(message.chat.id, f'Прости, смертный {message.from_user.first_name}, но я повинуюсь лишь своему господину.')
+	if message.text.lower() == 'бот?':
+		if message.from_user.username == 'ever_soup':
+			bot.send_message(message.chat.id, 'Я здесь, господин!')
+		else:
+			bot.send_message(message.chat.id, 'Чего хотел, смертный?')
+	if message.text.lower() == 'аниме говно':
+			bot.send_message(message.chat.id, 'Извинись немедленно!')
+
 bot.polling(none_stop=True)
