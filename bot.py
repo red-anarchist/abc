@@ -38,7 +38,7 @@ def get_text_message(message):
 		bot.send_message(message.chat.id, ranElement(quotes))
 	elif 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		bot.send_message(message.chat.id, 'Не называй меня Хикки, сучка.')
-	elif message.text.lower()[0:6] == 'хачиман' and len(message.text) < 9:
+	elif message.text.lower() == 'хачиман':
 		bot.send_message(message.chat.id, 'Скажи ещё три раза.')
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
