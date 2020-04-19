@@ -41,7 +41,7 @@ def get_text_message(message):
 	elif message.text.lower()[0:6] == 'хачиман' and len(message.text) < 9:
 		bot.send_message(message.chat.id, 'Скажи ещё три раза.')
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
-		u = ['{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
+		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
 		bot.send_message(message.chat.id, ranElement(u))
 
 bot.polling(none_stop=True)
