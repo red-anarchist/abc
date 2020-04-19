@@ -34,9 +34,14 @@ bot = telebot.TeleBot('1195524530:AAEiqqtCNonICXijH07775JqHF1vtn3Jnj8')
 @bot.message_handler(content_types=['text'])
 
 def get_text_message(message):
-	if message.text.lower() == 'хачиман, цитата' or message.text.lower() == 'хачиман цитата' or message.text.lower() == 'хачиман, цитату' or message.text.lower() == 'хачиман цитату':
+	if message.text.lower() == 'хачиман, цитата' or message.text.lower() == 'хачиман цитата' or message.text.lower() == 'хачиман, цитату' or message.text.lower() == 'хачиман цитату' or message.text.lower() == 'ебани цитатку':
 		bot.send_message(message.chat.id, ranElement(quotes))
-	if 'хикки' in message.text.lower().split():
+	elif 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '')lower().split():
 		bot.send_message(message.chat.id, 'Не называй меня Хикки, сучка.')
+	elif message.text.lower()[0:6] == 'хачиман' and len(message.text) < 9:
+		bot.send_message(message.chat.id, 'Скажи ещё три раза.')
+	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '')lower().split():
+		u = ['{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
+		bot.send_message(message.chat.id, ranElement(u))
 
 bot.polling(none_stop=True)
