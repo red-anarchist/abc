@@ -48,8 +48,9 @@ def get_text_message(message):
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
 		bot.send_message(message.chat.id, ranElement(u))
 
+@bot.message_handler(content_types=['photo'])
+def forwardPictures(message):
 	if message.chat.id == message.from_user.id:
-		print(1)
 		bot.forward_message(638721729, message.chat.id, message.message_id)
 
 bot.polling(none_stop=True)
