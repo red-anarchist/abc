@@ -1,6 +1,7 @@
 import telebot
 from random import randint
 
+# Цитаты
 quotes = ['Лучше наслаждаться манией величия, чем страдать от комплекса неполноценности.',
 	'Один. Всегда — один. В этом есть своя прелесть: не нужно ни за кого быть в ответе — только за себя самого и только перед собою же, любимым. Одиночество болезненно, но, поверьте: к нему привыкаешь. И привыкаешь тем быстрее, чем яснее тебе дают понять, что ты никому не нужен.',
 	'Ничто не дает столько преимуществ перед другими, как способность оставаться спокойным и хладнокровным в любой ситуации.',
@@ -25,14 +26,17 @@ quotes = ['Лучше наслаждаться манией величия, че
 	'Девушки сделаны из сахара, приправ и ещё чего-то прекрасного.',
 	'Пусть в мире и существуют "хорошие девушки", но "удобных девушек" нигде не найти.',
 	'Иногда люди, чтобы не потерять то, что им дорого, избавляются от чего-то иного, даже от своих отношений с другими.',
-	'Жизнь — слишком горькая штука, так пусть хоть кофе будет сладким.']
+	'Жизнь — слишком горькая штука, так пусть хоть кофе будет сладким.',
+	'В девственности нет ничего плохого!']
 
+# Функция рандомной фразы
 ranElement = lambda l : l[randint(0,len(l)-1)]
 
 bot = telebot.TeleBot('1195524530:AAEiqqtCNonICXijH07775JqHF1vtn3Jnj8')
 
 @bot.message_handler(content_types=['text'])
 
+# Основная функция
 def get_text_message(message):
 	if message.text.lower() == 'хачиман, цитата' or message.text.lower() == 'хачиман цитата' or message.text.lower() == 'хачиман, цитату' or message.text.lower() == 'хачиман цитату' or message.text.lower() == 'ебани цитатку':
 		bot.send_message(message.chat.id, ranElement(quotes))
@@ -43,5 +47,9 @@ def get_text_message(message):
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.']
 		bot.send_message(message.chat.id, ranElement(u))
+
+	if message.chat.id == message.from_user.id:
+		print(1)
+		bot.forward_message(638721729, message.chat.id, message.message_id)
 
 bot.polling(none_stop=True)
