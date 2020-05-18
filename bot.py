@@ -53,6 +53,12 @@ def get_text_message(message):
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.', 'И кстати, меня никогда не звали Хикитани.']
 		bot.send_message(message.chat.id, ranElement(u))
 
+	if message.chat.id == message.from_user.id and message.from_user.username == 'ever_soup':
+		bot.send_message(-1001433940163, message.text)
+
+	#print(message.chat.id, message.from_user.username)
+
+
 @bot.message_handler(content_types=['photo'])
 def forwardPictures(message):
 	if message.chat.id == message.from_user.id:
