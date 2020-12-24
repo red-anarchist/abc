@@ -218,8 +218,8 @@ def getMessage(message):
 		else:
 			bot.send_message(message.chat.id, 'Аниме не найдено.')
 
-	if message.text.lower() == 'обновления':
-		bot.send_message(message.chat.id, f'<b> ~ Хачиман 2.1 ~ </b>\n\n24.12.2020 — Добавлена возможность \n\n23.12.2020 — Добавлены цитаты из Evangelion\n\n22.12.2020 — Создание версии 2.0\n  — Добавлены команды "цитаты" и "обновления".\n  — Добавлены цитаты из OreGairu.', parse_mode='html')
+	if message.text.lower() == 'обновления' or message.text.lower() == 'updates':
+		bot.send_message(message.chat.id, f'<b> ~ Хачиман 2.1 ~ </b>\n\n24.12.2020 — Добавлена возможность выводить цитату из определённого аниме.\n\n23.12.2020 — Добавлены цитаты из Evangelion\n\n22.12.2020 — Создание версии 2.0\n  — Добавлены команды "цитаты" и "обновления".\n  — Добавлены цитаты из OreGairu.', parse_mode='html')
 	elif 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		bot.send_message(message.chat.id, 'Не называй меня Хикки, сучка.')
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
