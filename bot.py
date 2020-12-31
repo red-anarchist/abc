@@ -198,6 +198,31 @@ anime_lib = {
 	]
 }
 
+game_questions = [
+	# OreGairu
+	('Главный герой OreGairu — Хачиман Хикигая.', True),
+	('Хачиман (OreGairu) вступил в клуб литературы.', False),
+	('У Юи (OreGairu) розовые волосы.', True),
+	('У Хачимана (OreGairu) есть старший брат.', False),
+	('По словам Хачимана (OreGairu) у него есть 108 способностей.', True),
+	('Первоисточником OreGairu является манга.', False),
+	('Ранобе OreGairu состоит из 14 томов.', True),
+	('Хирацука (OreGairu) — директор школы, в которой учатся главные герои.', False),
+	('Хачиман (OreGairu) сначала подумал, что Сайка — девушка.', True),
+	('В OreGairu 5 опенингов.', False),
+	# Evangelion
+	('Аниме Neon Genesis Evangelion вышло в 1995 году.', True),
+	('В аниме Evangelion 13 ангелов, считая Адама и Лилит.', False),
+	('Нагиса Каору (Evangelion) — ангел.', True),
+	('Эндинг Evangelion называется "Komm, süsser Tod".', False),
+	('Второй удар (Evangelion) произошёл в 2000 году.', True),
+	('Целью Seele (Evangelion) является уничтожение человечества.', False),
+	('Большинство ангелов (Evangelion) являются потомками Адама.', True),
+	('После второго удара (Evangelion) Адам умер.', False),
+	('В The End of Evangelion Икари Синдзи отвергает совершенствование.', True),
+	('Seele (Evangelion) находится под руководством Nerv.', False)
+]
+
 bot = telebot.TeleBot('1195524530:AAEiqqtCNonICXijH07775JqHF1vtn3Jnj8')
 
 @bot.message_handler(content_types=['text'])
@@ -218,15 +243,38 @@ def getMessage(message):
 		else:
 			bot.send_message(message.chat.id, 'Аниме не найдено.')
 
-	if message.text.lower() == 'обновления' or message.text.lower() == 'updates':
-		bot.send_message(message.chat.id, f'<b> ~ Хачиман 2.1 ~ </b>\n\n24.12.2020 — Добавлена возможность выводить цитату из определённого аниме.\n\n23.12.2020 — Добавлены цитаты из Evangelion\n\n22.12.2020 — Создание версии 2.0\n  — Добавлены команды "цитаты" и "обновления".\n  — Добавлены цитаты из OreGairu.', parse_mode='html')
+	if message.text.lower() == 'обновления':
+		bot.send_message(message.chat.id, f'<b> ~ Хачиман 2.2 ~ </b>\n\n31.12.2020 — Добавлена игра "Правда или ложь", вызвать её можно с помощью команд "play", "game" или "игра".\n — В игру добавлено 10 вопросов по OreGairu и 10 вопросов по Евангелиону.\n — Добавлено поздравление с новым годом.\n\n24.12.2020 — Добавлена возможность выводить цитату из определённого аниме.\n\n23.12.2020 — Добавлены цитаты из Evangelion.\n\n22.12.2020 — Создание версии 2.0.\n  — Добавлены команды "цитаты" и "обновления".\n  — Добавлены цитаты из OreGairu.', parse_mode='html')
 	elif 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		bot.send_message(message.chat.id, 'Не называй меня Хикки, сучка.')
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.', 'И кстати, меня никогда не звали Хикитани.']
-		bot.send_message(message.chat.id, ranElement(u))
+		bot.send_message(message.chat.id, choice(u))
+
+	if message.text.lower() == 'play' or message.text.lower() == 'game' or message.text.lower() == 'игра':
+		bot.send_message(message.chat.id, choice(game_questions)[0])
+	try:
+		if message.reply_to_message.from_user.username == 'hachi_gachi_bot':
+			if message.text.lower() in ['да', 'правда', '+', 'yes', 'true']:
+				ex = True
+			elif message.text.lower() in ['нет', 'ложь', '-', 'no', 'false']:
+				ex = False
+			if ex != None:
+				try:
+					if dict(game_questions)[message.reply_to_message.text] == ex:
+						bot.send_message(message.chat.id, '<i>Правильный ответ!</i>', parse_mode='html')
+					elif dict(game_questions)[message.reply_to_message.text] != ex:
+						bot.send_message(message.chat.id, '<i>К сожалению, вы ошиблись.</i>', parse_mode='html')
+				except KeyError:
+					pass
+	except AttributeError:
+		pass
+
+	if fuzz.ratio(message.text.lower(), 'с новым годом') > 85:
+		bot.send_message(message.chat.id, '<a href="shikimori.one/animes/season/2021">С новым годом!</a>', parse_mode='html')
 
 	if message.chat.id == message.from_user.id and message.from_user.username == 'ever_soup':
 		bot.send_message(-1001433940163, message.text)
 
 bot.polling(none_stop=True)
+
