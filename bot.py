@@ -273,7 +273,7 @@ game_questions = [
 	('Большинство ангелов (Evangelion) являются потомками Адама.', True),
 	('После второго удара (Evangelion) Адам умер.', False),
 	('В The End of Evangelion Икари Синдзи отвергает совершенствование.', True),
-	('Seele (Evangelion) находится под руководством Nerv.', False)
+	('Seele (Evangelion) находится под руководством Nerv.', False),
 	# Death Note
 	('Ягами Лайт умер.', True),
 	('Миса становится девушкой Эла.', False),
