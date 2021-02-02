@@ -291,36 +291,62 @@ bot = telebot.TeleBot('1195524530:AAEiqqtCNonICXijH07775JqHF1vtn3Jnj8')
 
 @bot.message_handler(commands=['help'])
 def getHelp(message):
-	bot.send_message(message.chat.id, 'Список комманд:\n\nЦитата — показывает цитату случайного персонажа из случайного аниме.\nЦитата (название аниме) — показывает цитату случайного персонажа из аниме.\nОбновления — показывает список обновлений.\nPlay, game или игра — начинает игру "правда или ложь".')
+	bot.send_message(message.chat.id, '<b>Команды для бота</b>\n/quote [название аниме] — выводит цитату из аниме.\n/true_or_false — игра в "Правда или ложь".\n/updates — показывает список обновлений.', parse_mode='html')
 
-@bot.message_handler(content_types=['text'])
-def getMessage(message):
-	if message.text.lower() == 'цитата':
+@bot.message_handler(commands=['quote'])
+def getQuote(message):
+	if len(message.text.split()) > 1:
+		while_chek = True
+		while while_chek:
+			for kk in ['oregairu', 'розовая пора моей школьной жизни сплошной обман', 'yahari ore no seishun love come wa machigatteiru']:
+				if fuzz.ratio(message.text.lower()[6:], kk) > 77:
+					a = 'Yahari Ore no Seishun Love Come wa Machigatteiru / Розовая пора моей школьной жизни — сплошной обман'
+					c = choice(anime_lib['Yahari Ore no Seishun Love Come wa Machigatteiru / Розовая пора моей школьной жизни — сплошной обман'])
+					bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Персонаж:</b> {c}', parse_mode='html')
+					while_chek = False
+					break
+			for kk in ['evangelion', 'neon genesis evangelion', 'евангелион', "евангелион нового поколения"]:
+				if fuzz.ratio(message.text.lower()[6:], kk) > 77:
+					a = 'Neon Genesis Evangelion / Евангелион нового поколения'
+					c = choice(anime_lib['Neon Genesis Evangelion / Евангелион нового поколения'])
+					bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Персонаж:</b> {c}', parse_mode='html')
+					while_chek = False
+					break
+			for kk in ['death note', 'тетрадь смерти']:
+				if fuzz.ratio(message.text.lower()[6:], kk) > 77:
+					a = 'Death Note / Тетрадь смерти'
+					c = choice(anime_lib['Death Note / Тетрадь смерти'])
+					bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Персонаж:</b> {c}', parse_mode='html')
+					while_chek = False
+					break
+			if while_chek:
+				bot.send_message(message.chat.id, 'Аниме не найдено.')
+			else:
+				break
+	else:
 		a = choice(anime)
 		c = choice(anime_lib[a])
 		bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Аниме:</b> {a}\n<b>Персонаж:</b> {c}', parse_mode='html')
-	elif len(message.text.split()) > 1 and message.text.lower().split()[0] == 'цитата':
-		if fuzz.ratio(message.text.lower()[7:], 'oregairu') > 90 or fuzz.ratio(message.text.lower()[7:], 'розовая пора моей школьной жизни сплошной обман') > 50 or fuzz.ratio(message.text.lower()[7:], 'yahari ore no seishun love come wa machigatteiru') > 50:
-			a = 'Yahari Ore no Seishun Love Come wa Machigatteiru / Розовая пора моей школьной жизни — сплошной обман'
-			c = choice(anime_lib['Yahari Ore no Seishun Love Come wa Machigatteiru / Розовая пора моей школьной жизни — сплошной обман'])
-			bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Персонаж:</b> {c}', parse_mode='html')
-		elif fuzz.ratio(message.text.lower()[7:], 'evangelion') > 80 or fuzz.ratio(message.text.lower()[7:], 'евангелион') > 80 or fuzz.ratio(message.text.lower()[7:], 'neon genesis evangelion') > 70 or fuzz.ratio(message.text.lower()[7:], 'евангелион нового поколения') > 80:
-			a = 'Neon Genesis Evangelion / Евангелион нового поколения'
-			c = choice(anime_lib['Neon Genesis Evangelion / Евангелион нового поколения'])
-			bot.send_message(message.chat.id, f'<i>«{choice(quotes[a][c])}»</i>\n\n<b>Персонаж:</b> {c}', parse_mode='html')
-		else:
-			bot.send_message(message.chat.id, 'Аниме не найдено.')
 
-	if message.text.lower() == 'обновления':
-		bot.send_message(message.chat.id, f'<b> ~ Хачиман 2.2 ~ </b>\n\n22.01.2021 — Добавлены 10 вопросов по Death Note для "Правда или ложь", также добалены цитаты.\nДобавлена команда, где есть все команды бота. /help\n\n31.12.2020 — Добавлена игра "Правда или ложь", вызвать её можно с помощью команд "play", "game" или "игра".\n — В игру добавлено 10 вопросов по OreGairu и 10 вопросов по Евангелиону.\n — Добавлено поздравление с новым годом.\n\n24.12.2020 — Добавлена возможность выводить цитату из определённого аниме.\n\n23.12.2020 — Добавлены цитаты из Evangelion.\n\n22.12.2020 — Создание версии 2.0.\n  — Добавлены команды "цитаты" и "обновления".\n  — Добавлены цитаты из OreGairu.', parse_mode='html')
-	elif 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
+@bot.message_handler(commands=['true_or_false'])
+def getTrueOrFalse(message):
+	bot.send_message(message.chat.id, choice(game_questions)[0])
+
+@bot.message_handler(commands=['updates'])
+def getUpdates(message):
+	if message.chat.id == message.from_user.id:
+		bot.send_message(message.chat.id, '<b>~ Хачиман 3.0 ~</b>\n\n03.02.2021\n— Полная перестройка кода\n— Введены команды\n\n22.01.2021\n— Добавлены 10 вопросов по Death Note для "Правда или ложь", также добалены цитаты.\n—Добавлена команда, где есть все команды бота. /help\n\n31.12.2020\n— Добавлена игра "Правда или ложь".\n— В игру добавлено 10 вопросов по OreGairu и 10 вопросов по Евангелиону.\n\n24.12.2020\n— Добавлена возможность выводить цитату из определённого аниме.\n\n23.12.2020\n— Добавлены цитаты из Evangelion.\n\n22.12.2020\n— Создание версии 2.0.\n— Добавлены цитаты из OreGairu.', parse_mode='html')
+	else:
+		bot.send_message(message.chat.id, '<b>~ Хачиман 3.0 ~</b>\n\n03.02.2021\n— Полная перестройка кода\n— Введены команды\n\n<i>Записи о прошлых обновлениях можете посмотреть в ЛС по той же команде.</i>', parse_mode='html')
+
+@bot.message_handler(content_types=['text'])
+def getMessages(message):
+	if 'хикки' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		bot.send_message(message.chat.id, 'Не называй меня Хикки, сучка.')
 	elif 'хикитани' in message.text.replace('!', '').replace('.', '').replace(',', '').replace('?', '').lower().split():
 		u = [f'{message.from_user.first_name}, заткнись!', 'Всё равно неправильно.', 'Вообще-то Хикигая.', 'И кстати, меня никогда не звали Хикитани.']
 		bot.send_message(message.chat.id, choice(u))
 
-	if message.text.lower() == 'play' or message.text.lower() == 'game' or message.text.lower() == 'игра':
-		bot.send_message(message.chat.id, choice(game_questions)[0])
 	try:
 		if message.reply_to_message.from_user.username == 'hachi_gachi_bot' and message.reply_to_message.text in dict(game_questions):
 			if message.text.lower() in ['да', 'правда', '+', 'yes', 'true']:
@@ -342,4 +368,3 @@ def getMessage(message):
 		bot.send_message(-1001433940163, message.text)
 
 bot.polling(none_stop=True)
-
