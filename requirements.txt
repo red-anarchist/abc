@@ -6,3 +6,4 @@ fuzzywuzzy
 requests
 fake_useragent
 bs4
+lxml
