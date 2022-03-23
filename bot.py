@@ -15,12 +15,9 @@ def start(mes):
 
 @bot.message_handler(content_types=["text"])
 def main1(mes):
-	print("подкл")
 	txm = mes.text
 	if txm.split()[0].lower() in ["пользователь", "юзер", "user", "!!"]:
-		print("юз")
 		try:
-			print(txm, txm.split())
 			if txm.split()[1] in ["+", "i", "me", "я"]:
 				usnm = mes.from_user.username
 			else:
@@ -28,27 +25,16 @@ def main1(mes):
 		except IndexError:
 			bot.send_message(mes.chat.id, "Вы неправильно что-то ввели.")
 		else:
-			print(usnm)
 			info = get_user_information(usnm)
 			if info is None:
 				bot.send_message(mes.chat.id, "Пользователь не найден.")
 			else:
 				bot.send_message(mes.chat.id, f"Имя: {info['name']}\nПросмотрено: {info['comp']}")
 
-def connect(link, mes):
-	responce = get(link)
-	print(type(responce.status_code), responce.status_code)
-	if responce.status_code == 200:
-		return True
-	elif responce.status_code == 404:
-		bot.send_message(mes.chat.id, "Странно, но сайт не найден.")
-		return False
-
 def get_user_information(user):
 	INFO = {}
 	a = site+user
 	responce = get(a, headers=header).text
-	print(site+user)
 	soup = BS(responce, "lxml")
 	try:
 		sec = soup.find("section", class_="l-page").find("div")
