@@ -3,7 +3,7 @@ from fake_useragent import UserAgent as fua
 from bs4 import BeautifulSoup as BS
 from telebot import TeleBot
 
-bot = TeleBot("5231845055:AAHVisbLBnWbFAoniKXeNoixZCnjnxw42vo")
+bot = TeleBot("5217885808:AAFG8xIybc4y7ZBMQQX_U6EO03yCXkM_xK4")
 site = "https://shikimori.one/"
 
 ua = fua()
