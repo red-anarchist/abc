@@ -29,7 +29,10 @@ def main1(mes):
 			if info is None:
 				bot.send_message(mes.chat.id, "Пользователь не найден.")
 			else:
-				bot.send_message(mes.chat.id, f"Имя: {info['name']}\nПросмотрено: {info['comp']}")
+				bot.send_message(mes.chat.id, f"Имя: {info['name']}\
+					                            \nПросмотрено: {info['comp']}\
+					                            \nЗапланировано: {info['plan']}\
+					                            \nБрошено: {info['drop']}")
 
 def get_user_information(user):
 	INFO = {}
@@ -48,7 +51,18 @@ def get_user_information(user):
 		bar = b_stats_bar_anime.find("div", class_="bar")
 
 		INFO["name"] = head.find("div", class_="c-brief").find("header").find("h1").text
-		INFO["comp"] = bar.find_all('div')[0].text
+		try:
+			INFO["comp"] = bar.find_all('div')[0].text
+		except AttributeError:
+			INFO["comp"] = None
+		try:
+			INFO["plan"] = bar.find_all('div')[1].text
+		except:
+			INFO["plan"] = None
+		try:
+			INFO["drop"] = bar.find_all('div')[2].text
+		except:
+			INFO["drop"] = None
 
 		return INFO
 
